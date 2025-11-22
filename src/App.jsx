@@ -133,7 +133,7 @@ function Catalog({onAdd}){
           <p className="text-slate-400">Loading products...</p>
         ) : (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {products.map(p=> <ProductCard key={p.id} p={p} onAdd={(prod)=>onAdd({...prod, qty:1})}/>) }
+            {products.map(p=> <ProductCard key={p.id} p={p} onAdd={(prod)=>onAdd({...prod, qty:1})}/>)}
           </div>
         )}
       </div>
@@ -158,14 +158,24 @@ function CheckoutModal({open, items, onClose}){
   }
   return (
     <div className={`fixed inset-0 z-[70] ${open?'' : 'pointer-events-none'}`}>
-      <div className={`absolute inset-0 bg-black/60 ${open?'opacity-100':'opacity-0'} transition-opacity`} onClick={onClose}/>
-      <div className={`absolute left-1/2 top-1/2 w-[95%] sm:w-[640px] -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-2xl p-6 transition-transform ${open?'scale-100':'scale-95'}`}>
+      <div className={`absolute inset-0 bg-black/60 ${open?'opacity-100':'opacity-0'} transition-opacity z-0`} onClick={onClose}/>
+      <div className={`absolute left-1/2 top-1/2 w-[95%] sm:w-[640px] -translate-x-1/2 -translate-y-1/2 bg-white rounded-2xl shadow-2xl p-6 transition-transform ${open?'scale-100':'scale-95'} z-10`}>
         <h3 className="text-xl font-semibold mb-4">Checkout</h3>
         <div className="grid sm:grid-cols-2 gap-3">
           {['name','email','phone','address','city','zip_code','country'].map((k)=> (
-            <input key={k} placeholder={k.replace('_',' ').toUpperCase()} value={form[k]} onChange={e=>setForm({...form,[k]:e.target.value})} className="border rounded-lg px-3 py-2"/>
+            <input
+              key={k}
+              placeholder={k.replace('_',' ').toUpperCase()}
+              value={form[k]}
+              onChange={e=>setForm({...form,[k]:e.target.value})}
+              className="border rounded-lg px-3 py-2 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
+            />
           ))}
-          <select value={form.payment_method} onChange={e=>setForm({...form, payment_method:e.target.value})} className="border rounded-lg px-3 py-2">
+          <select
+            value={form.payment_method}
+            onChange={e=>setForm({...form, payment_method:e.target.value})}
+            className="border rounded-lg px-3 py-2 bg-white text-slate-900 focus:outline-none focus:ring-2 focus:ring-slate-900"
+          >
             <option value="card">Card</option>
             <option value="upi">UPI</option>
             <option value="cod">Cash on Delivery</option>
@@ -223,12 +233,12 @@ function AdminPanel(){
         <p className="text-sm text-slate-600 mb-6">Manage products using your admin token.</p>
         <div className="border rounded-xl p-4 mb-8">
           <div className="grid sm:grid-cols-2 lg:grid-cols-5 gap-3">
-            <input value={token} onChange={e=>setToken(e.target.value)} placeholder="Admin token" className="border rounded-lg px-3 py-2 lg:col-span-5"/>
-            <input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} placeholder="Name" className="border rounded-lg px-3 py-2"/>
-            <input value={form.description} onChange={e=>setForm({...form,description:e.target.value})} placeholder="Description" className="border rounded-lg px-3 py-2"/>
-            <input value={form.price} onChange={e=>setForm({...form,price:e.target.value})} placeholder="Price" type="number" className="border rounded-lg px-3 py-2"/>
-            <input value={form.category} onChange={e=>setForm({...form,category:e.target.value})} placeholder="Category" className="border rounded-lg px-3 py-2"/>
-            <input value={form.image_url} onChange={e=>setForm({...form,image_url:e.target.value})} placeholder="Image URL" className="border rounded-lg px-3 py-2 lg:col-span-2"/>
+            <input value={token} onChange={e=>setToken(e.target.value)} placeholder="Admin token" className="border rounded-lg px-3 py-2 lg:col-span-5 bg-white text-slate-900"/>
+            <input value={form.name} onChange={e=>setForm({...form,name:e.target.value})} placeholder="Name" className="border rounded-lg px-3 py-2 bg-white text-slate-900"/>
+            <input value={form.description} onChange={e=>setForm({...form,description:e.target.value})} placeholder="Description" className="border rounded-lg px-3 py-2 bg-white text-slate-900"/>
+            <input value={form.price} onChange={e=>setForm({...form,price:e.target.value})} placeholder="Price" type="number" className="border rounded-lg px-3 py-2 bg-white text-slate-900"/>
+            <input value={form.category} onChange={e=>setForm({...form,category:e.target.value})} placeholder="Category" className="border rounded-lg px-3 py-2 bg-white text-slate-900"/>
+            <input value={form.image_url} onChange={e=>setForm({...form,image_url:e.target.value})} placeholder="Image URL" className="border rounded-lg px-3 py-2 lg:col-span-2 bg-white text-slate-900"/>
             <button onClick={add} className="bg-slate-900 text-white rounded-lg px-4 py-2">Add Product</button>
           </div>
         </div>
